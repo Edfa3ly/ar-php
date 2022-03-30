@@ -138,8 +138,9 @@ class I18N_Arabic_Transliteration
      */         
     public function __construct()
     {
-        $xml = simplexml_load_file(dirname(__FILE__).'/data/Transliteration.xml');
-
+        $data = file_get_contents(dirname(__FILE__).'/data/Transliteration.xml');
+        $xml = new SimpleXMLElement($data);
+        
         foreach ($xml->xpath("//preg_replace[@function='ar2en']/pair") as $pair) {
             array_push(self::$_ar2enPregSearch, (string)$pair->search);
             array_push(self::$_ar2enPregReplace, (string)$pair->replace);
